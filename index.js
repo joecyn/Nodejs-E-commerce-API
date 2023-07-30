@@ -4,8 +4,15 @@ const AdminRoute=require("./routes/AdminRoute");
 const UserRoute=require("./routes/UserRoute");
 const PORT =5000;
 const app=express();
+const dotenv=require("dotenv");
+const cookieParser=require("cookie-parser");
 
+//middlewares
+app.use(express.json());
+app.use(cookieParser());
+dotenv.config();
 
+//Routes
 app.use("/api/admin",AdminRoute);
 app.use("/api/user",UserRoute);
 

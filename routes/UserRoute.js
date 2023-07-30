@@ -1,37 +1,28 @@
 const express=require("express");
-const Users=require("../Models/user");
-const Products=require("../Models/Product");
-const Orders=require("../Models/order");
+const registerController=require("../Controllers/registerController");
+const loginController=require("../Controllers/loginController");
+const {getProducts,getSingleProduct}=require("../Controllers/userControllers/product");
+const {placeOrder,getOrders}=require("../Controllers/userControllers/order");
+const Auth=require("../Middlewares/Auth");
 const router=express.Router();
 
 
 //Get all Products
-router.get("/products",async(req,res)=>{
-    try {
-        const products=await Products.find({});
-        products.length > 0 ? res.send(products) : res.send("There are no Products available");
-        
-    } catch (error) {
-        res.send(error);
-        
-    }
-   
-});
+router.get("/products",getProducts);
 
 //Get a Single Product
-router.get("/products/:id",async(req,res)=>{
-    try {
-        const id=req.params.id;
-        const product=await Products.findById({_id:id});
-        product ? res.send(product) : res.send("Product not found");
-        
-    } catch (error) {
-        res.send(error);
-        
-    }
-});
+router.get("/products/:id",getSingleProduct);
 
-//
+//User Register
+router.post("/register",registerController);
 
+//User Login
+router.post("/login",loginController);
 
-module.exports =router;
+//Making an Order
+router.post("/order",Auth,placeOrder);
+
+//Get all orders
+router.get("/orders",Auth,getOrders);
+
+module.exports=router;
