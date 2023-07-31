@@ -47,5 +47,8 @@ const getOrders=async(req,res)=>{
         
     }
 }
+
+//Cancel order
+
 module.exports={placeOrder,getOrders}
 
