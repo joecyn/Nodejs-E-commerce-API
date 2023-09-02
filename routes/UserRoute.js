@@ -28,7 +28,7 @@ router.post("/order",Auth,placeOrder);
 //Get all User's orders
 router.get("/orders",Auth,getOrders);
 
-//Cancell User's Order
+//Cancel a  User's Order
 router.post("/orders/:id",Auth,cancelOrder)
 
 module.exports=router;
